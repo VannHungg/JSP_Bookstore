@@ -43,6 +43,10 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 .active {
 	color: #ba6a62 !important;
 }
+
+.user--profile-left .user--profile--list-function li {
+    margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -62,8 +66,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				if (khachHang == null) {
 				%>
 				<div class="d-inline-flex align-items-center">
-					<a href="<%=url%>/eshop/login/signin.jsp"
-						class="nav-item nav-link px-2">Sign In</a>
+					<a href="<%=url%>/eshop/login/signin.jsp" class="nav-item nav-link px-2">Sign In</a>
 					<a href="<%=url%>/eshop/login/signup.jsp" class="nav-item nav-link px-2">Sign Up</a>
 				</div>
 				<%
@@ -90,8 +93,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="d-inline-flex align-items-center">
 					<a class="text-dark px-2" href=""> <i class="fab fa-facebook-f"></i>
 					</a> <a class="text-dark px-2" href=""> <i class="fab fa-twitter"></i>
-					</a> <a class="text-dark px-2" href=""> <i
-						class="fab fa-linkedin-in"></i>
+					</a> <a class="text-dark px-2" href=""> <i class="fab fa-linkedin-in"></i>
 					</a> <a class="text-dark px-2" href=""> <i class="fab fa-instagram"></i>
 					</a> <a class="text-dark pl-2" href=""> <i class="fab fa-youtube"></i>
 					</a>

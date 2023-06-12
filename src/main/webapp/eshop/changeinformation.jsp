@@ -13,7 +13,6 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="Free HTML Templates" name="keywords">
 <meta content="Free HTML Templates" name="description">
-
 <!-- Favicon -->
 <link href="img/favicon.ico" rel="icon">
 
@@ -34,15 +33,9 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 
 <!-- Customized Bootstrap Stylesheet -->
 <link href="<%=url%>/eshop/css/style.css" rel="stylesheet">
+<link href="<%=url%>/eshop/css/changeinformation.css" rel="stylesheet">
 
-<style type="text/css">
-.no-active {
-	color: #6F6F6F !important;
-}
-.active {
-	color: #ba6a62 !important;
-}
-</style>
+
 </head>
 <body>
 	<!-- Topbar Start -->
@@ -88,8 +81,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="d-inline-flex align-items-center">
 					<a class="text-dark px-2" href=""> <i class="fab fa-facebook-f"></i>
 					</a> <a class="text-dark px-2" href=""> <i class="fab fa-twitter"></i>
-					</a> <a class="text-dark px-2" href=""> <i
-						class="fab fa-linkedin-in"></i>
+					</a> <a class="text-dark px-2" href=""> <i class="fab fa-linkedin-in"></i>
 					</a> <a class="text-dark px-2" href=""> <i class="fab fa-instagram"></i>
 					</a> <a class="text-dark pl-2" href=""> <i class="fab fa-youtube"></i>
 					</a>
@@ -127,11 +119,11 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 		</div>
 	</div>
 	<!-- Topbar End -->
-	<div class="">
+	<div class="" style="background-color: <%if(khachHang == null) { %>white<%}else { %>#f1f1f1<%} %>; min-height: 300px; padding-bottom: 50px">
 		<article class=" widget-navigation widget-bread-cumps-widget widget">
 			<nav aria-label="breadcrumb">
 				<div class="container">
-					<ol class="breadcrumb" style="background-color: white; padding: 1rem 0">
+					<ol class="breadcrumb" style="background-color: <%if(khachHang == null) { %>white<%}else { %>#f1f1f1<%} %>; padding: 1rem 0">
 						<li class="breadcrumb-item">
 							<a href="/">Trang chủ</a>
 						</li>
@@ -142,138 +134,207 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				</div>
 			</nav>
 		</article>
-		<main id="layout-main" class="group mt-3">
-			<div id="layout-content" class="group">
-				<div id="content" class="group">
-					<div class="zone zone-content">
-						<div class="container">
-							<div class="user--profile">
-								<div class="row">
-									<div class="col-md-3 bg-light">
-										<div class="user--profile-left">
-											<ul class="user--profile--list-function" style="list-style: none; margin: 0; padding: 0">
-												<li class="active">
-													<a class="active" href="/user/information">Thông tin & liên hệ </a>
-												</li>
-												<li class="no-active">
-													<a class="no-active" href="/user/information">Đổi tên người dùng </a>
-												</li>
-												<li class="no-active">
-													<a class="no-active" href="/user/information/changeusername">Đổi mật khẩu </a>
-												</li>
-												<li>
-													<a class="no-active" href="/team/">Quản lý đội</a>
-												</li>
-											</ul>
+		<%if(khachHang != null) { %>
+			<main id="layout-main" class="group mt-3">
+				<div id="layout-content" class="group">
+					<div id="content" class="group">
+						<div class="zone zone-content">
+							<div class="container">
+								<div class="user--profile">
+									<div class="row">
+										<div class="col-md-3 bg-light" style="padding: 30px 0 0 25px; min-height: 400px">
+											<div class="user--profile-left">
+												<ul class="user--profile--list-function" style="list-style: none; margin: 0; padding: 0">
+													<li class="active">
+														<a class="active" href="/user/information">Thông tin & liên hệ </a>
+													</li>
+													<li class="no-active">
+														<a class="no-active" href="/user/information">Đổi tên người dùng </a>
+													</li>
+													<li class="no-active">
+														<a class="no-active" href="/user/information/changeusername">Đổi mật khẩu </a>
+													</li>
+													<li>
+														<a class="no-active" href="/team/">Quản lý đội</a>
+													</li>
+												</ul>
+											</div>
 										</div>
-									</div>
-									<div class="col-md-9 user--profile-right-container bg-light">
-										<div class="user--profile-right">
-											<div class="user--profile-group">
-												<h2 class="user--profile-title-group mb-3">Thông tin</h2>
-												<form class="init" method="post" id="frm-info">
-													<div class="row">
-														<div class="col-md-12 col-xs-12">
-															<div class="row">
-																<div class="col-lg-3 col-sm-4 col-xs-12">
-																	<div class="form-group">
-																		<label for="FamilyName" class="required">Họ và
-																			tên</label>
+										<div class="col-md-9 user--profile-right-container bg-light" style="padding: 30px 0 0 30px; min-height: 400px">
+											<div class="user--profile-right">
+												<div class="user--profile-group">
+													<%
+													String success = (String)request.getAttribute("success");
+													if(success != null) {
+													%>
+														<div class="alert alert-success" style="margin-right: 30px;">
+															  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+														    <strong>Success!</strong> This alert box could indicate a successful or positive action.
+														 </div>
+													<%} %>
+													<h2 class="user--profile-title-group mb-3">Thông tin</h2>
+													<%
+													String hoVaTen = (khachHang.getHoVaTen() != null) ? khachHang.getHoVaTen() : "";
+													String ngaySinh= (khachHang.getNgaySinh() != null) ? khachHang.getNgaySinh().toString() : "01/01/2001";
+													String dienThoai= (khachHang.getSoDienThoai() != null) ? khachHang.getSoDienThoai() : "";
+													String email= (khachHang.getEmail() != null) ? khachHang.getEmail() : "";
+													String gioiTinh= (khachHang.getGioiTinh() != null) ? khachHang.getGioiTinh() : "";
+													String diaChiKhachHang= (khachHang.getDiaChi() != null) ? khachHang.getDiaChi() : "";
+													%>
+													<form class="init" method="post" id="frm-info" action="<%=url%>/change-info" >
+														<div class="row">
+															<div class="col-md-2 col-xs-12">
+		                                                        <div class="row">
+		                                                            <div id="ImgPreview" class="no-img">
+		                                                            </div>
+		                                                        </div>
+		                                                        <div class="row avatar-selector">
+		                                                            <div class="form-group UploadAvatar">
+		                                                                <label for="Avatar" id="messageValidateImage">Ảnh đại
+		                                                                    diện của bạn</label>
+		                                                                <input name="ImgFile" id="Avatar" class="file"
+		                                                                    type="file"
+		                                                                    accept="image/png,image/x-png,image/gif,image/jpeg,image/jpg" />
+		                                                                <div class="input-group">
+		                                                                    <span class="input-group-btn">
+		                                                                        <button class="browse btn btn-primary input-sm" type="button" id="Upload-Ava">
+		                                                                        	Chọn ảnh
+		                                                                        </button>
+		                                                                    </span>
+		                                                                </div>
+		                                                            </div>
+		                                                        </div>
+		                                                    </div>
+															<div class="col-md-9 col-xs-12">
+																<input name="id" value="<%=khachHang.getMaKhacHang() %>" type="hidden" />
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="FamilyName" class="required">Họ và tên</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-name" class="span-display"></span> 
+																			<input
+																				name="FamilyName" type="text"
+																				class="form-control is-required" id="FamilyName"
+																				autocomplete="family-name" value="<%=hoVaTen%>"/>
+																		</div>
 																	</div>
 																</div>
-																<div class="col-lg-9 col-sm-8 col-xs-12">
-																	<div class="form-group">
-																		<span id="span-name" class="span-display"></span> <input
-																			name="FamilyName" type="text"
-																			class="form-control is-required" id="FamilyName"
-																			autocomplete="family-name" />
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="BirthYear">Ngày sinh</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-birthday" class="span-display"></span> 
+																			<input
+																				name="BirthYear" type="date" id="BirthYear"
+																				class="form-control" placeholder="yyyy-mm-dd" value="<%=ngaySinh%>">
+																		</div>
 																	</div>
 																</div>
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="text" class="required">Số điện thoại</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-phone" class="span-display"></span> 
+																			<input
+																				name="PhoneNumber" type="text"
+																				class="form-control is-required" id="PhoneNumber"
+																				placeholder="Số điện thoại"
+																				autocomplete="tel-national" value="<%=dienThoai%>"/>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="EmailAddress" class="required">Địa
+																				chỉ Email</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-email" class="span-display"></span> <input
+																				name="EmailAddress" type="email"
+																				class="form-control" id="EmailAddress"
+																				placeholder="Địa chỉ Email" autocomplete="email" value="<%=email%>"/>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="" class="required">Giới tính</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-gender" class="span-display"></span> 
+																			<label for="GenderMale">Nam</label>
+																			<input name="Gender" type="radio" id="GenderMale" class="mr-3" value="Nam"
+																				<%if(gioiTinh.equals("Nam")) { %> checked="checked" <%} %>
+																			/>
+																			
+																			<label for="GenderFemale">Nữ</label>
+																			<input name="Gender" type="radio" id="GenderFemale" class="mr-3" value="Nữ"
+																				<%if(gioiTinh.equals("Nữ")) { %> checked="checked" <%} %>
+																			/>
+																			
+																			<label for="GenderOther">Khác</label>
+																			<input name="Gender" type="radio" id="GenderOther" class="mr-3" value="Khác"
+																				<%if(gioiTinh.equals("Khác")) { %> checked="checked" <%} %>
+																			/>
+																		</div>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-lg-3 col-sm-4 col-xs-12">
+																		<div class="form-group">
+																			<label for="CityName">Địa chỉ</label>
+																		</div>
+																	</div>
+																	<div class="col-lg-9 col-sm-8 col-xs-12">
+																		<div class="form-group">
+																			<span id="span-cityName" class="span-display"></span>
+																			<textarea name="CityName" type="text"
+																				class="form-control" id="CityName"
+																				<%if(khachHang == null){ %> placeholder="Tỉnh/Thành phố bạn đang sống"<%}%> ><%=diaChiKhachHang %></textarea>
+																		</div>
+																	</div>
+																</div>
+																<div class="row mt-3">
+		                                                            <div class="form-group pull-right">
+		                                                                <button
+		                                                                    class="btn btn-primary btn-sm pull-right btn-save save-info-button"
+		                                                                    type="submit" id="btnSaveInfo"
+		                                                                    style="height: 35px;width: 104px;border-radius: 3px;line-height: inherit;">Lưu</button>
+		                                                                <button class="btn btn-secondary btn-sm pull-right btn-cancel "
+		                                                                    type="submit" id="btnCancelInfo"
+		                                                                    style="height: 35px;width: 104px;border-radius: 3px;margin-right: 18px; line-height: inherit;">Huỷ</button>
+		                                                            </div>
+		                                                        </div>
 															</div>
-															<div class="row">
-																<div class="col-lg-3 col-sm-4 col-xs-12">
-																	<div class="form-group">
-																		<label for="BirthYear">Ngày sinh</label>
-																	</div>
-																</div>
-																<div class="col-lg-9 col-sm-8 col-xs-12">
-																	<div class="form-group">
-																		<span id="span-birthday" class="span-display"></span> <input
-																			name="BirthYear" type="text" id="BirthYear"
-																			class="form-control" placeholder="yyyy-mm-dd">
-																	</div>
-																</div>
+															<div class="col-md-1">
+																<p style="float: right;">
+																	<a href="javascript:void(0)"> <i
+																		class="cl-icon-pen edit-pencil-info"
+																		id="edit-pencil-info"></i>
+																	</a>
+																</p>
 															</div>
-															<div class="row">
-																<div class="col-lg-3 col-sm-4 col-xs-12">
-																	<div class="form-group">
-																		<label for="text" class="required">Số điện
-																			thoại</label>
-																	</div>
-																</div>
-																<div class="col-lg-9 col-sm-8 col-xs-12">
-																	<div class="form-group">
-																		<span id="span-phone" class="span-display"></span> <input
-																			name="PhoneNumber" type="text"
-																			class="form-control is-required" id="PhoneNumber"
-																			placeholder="Số điện thoại"
-																			autocomplete="tel-national" />
-																	</div>
-																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-sm-4 col-xs-12">
-																	<div class="form-group">
-																		<label for="EmailAddress" class="required">Địa
-																			chỉ Email</label>
-																	</div>
-																</div>
-																<div class="col-lg-9 col-sm-8 col-xs-12">
-																	<div class="form-group">
-																		<span id="span-email" class="span-display"></span> <input
-																			name="EmailAddress" type="email"
-																			class="form-control" id="EmailAddress"
-																			placeholder="Địa chỉ Email" autocomplete="email" />
-																	</div>
-																</div>
-															</div>
-															<div class="row">
-																<div class="col-lg-3 col-sm-4 col-xs-12">
-																	<div class="form-group">
-																		<label for="CityName">Địa chỉ</label>
-																	</div>
-																</div>
-																<div class="col-lg-9 col-sm-8 col-xs-12">
-																	<div class="form-group">
-																		<span id="span-cityName" class="span-display"></span>
-																		<textarea name="CityName" type="text"
-																			class="form-control" id="CityName"
-																			placeholder="Tỉnh/Thành phố bạn đang sống"></textarea>
-																	</div>
-																</div>
-															</div>
-															<div class="row mt-3">
-	                                                            <div class="form-group pull-right">
-	                                                                <button
-	                                                                    class="btn btn-primary btn-sm pull-right btn-save save-info-button"
-	                                                                    type="button" id="btnSaveInfo"
-	                                                                    style="height: 35px;width: 104px;border-radius: 3px;line-height: inherit;">Lưu</button>
-	                                                                <button class="btn btn-secondary btn-sm pull-right btn-cancel "
-	                                                                    type="button" id="btnCancelInfo"
-	                                                                    style="height: 35px;width: 104px;border-radius: 3px;margin-right: 18px; line-height: inherit;">Huỷ</button>
-	                                                            </div>
-	                                                        </div>
 														</div>
-														<div class="col-md-1">
-															<p style="float: right;">
-																<a href="javascript:void(0)"> <i
-																	class="cl-icon-pen edit-pencil-info"
-																	id="edit-pencil-info"></i>
-																</a>
-															</p>
-														</div>
-													</div>
-												</form>
+													</form>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -282,12 +343,17 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 						</div>
 					</div>
 				</div>
-			</div>
-		</main>
-	
+			</main>
+	<%} else { %>
+		<div class="container">
+			<a href="javascript:void(0)" data-toggle="modal" data-target="#loginModal" onclick="openModal('login')" id="not-auth" style="display: inline-block; color:red; margin: 10px 0px; font-style: italic">
+				Please sign in to update your information!
+			</a>
+		</div>
+	<%} %>
 	</div>
 	<!-- Footer Start -->
-	<div class="container-fluid bg-secondary text-dark mt-5 pt-5">
+	<div class="container-fluid bg-secondary text-dark mt-5 pt-5" style="margin: 0 !important;">
 		<div class="row px-xl-5 pt-5">
 			<div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
 				<a href="" class="text-decoration-none">
