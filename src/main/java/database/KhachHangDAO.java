@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.KhachHang;
+import util.MaHoa;
 
 public class KhachHangDAO implements DAOInterface<KhachHang> {
 
@@ -254,6 +255,38 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 			st.setString(10, t.getEmail());
 			st.setBoolean(11, t.isDangKyNhanBangTin());
 			st.setString(12, t.getMaKhacHang());
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			ketQua = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + ketQua + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+	
+	public int updatePassword(String t, String id) {
+		int ketQua = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "UPDATE khachhang " + " SET " + "matkhau=?" + " WHERE makhachhang=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			String hashPassword = MaHoa.toMD5(t);
+			st.setString(1, hashPassword);
+			st.setString(2, id);
 			// Bước 3: thực thi câu lệnh SQL
 
 			System.out.println(sql);
