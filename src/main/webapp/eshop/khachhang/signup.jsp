@@ -33,7 +33,8 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
-                        <form method="POST" class="register-form" id="register-form" action="<%=url + "/process-register" %>">
+                        <form method="POST" class="register-form" id="register-form" action="<%=url + "/khach-hang" %>">
+                        	<input type="hidden" name="action" value="process-register">
                         	<%if(!notify.equals("")) { %>
                         		<span id="all_error" style="color: red;"><%=notify %></span>
                         	<%} %>
@@ -67,7 +68,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
                     </div>
                     <div class="signup-image">
                         <figure><img src="<%=url %>/eshop/login/images/signup-image.jpg" alt="sing up image"></figure>
-                        <a href="<%=url %>/eshop/login/signin.jsp" class="signup-image-link">I am already member</a>
+                        <a href="<%=url %>/eshop/khachhang/signin.jsp" class="signup-image-link">I am already member</a>
                     </div>
                 </div>
             </div>
