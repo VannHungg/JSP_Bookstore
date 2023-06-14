@@ -15,7 +15,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 <meta content="Free HTML Templates" name="description">
 
 <!-- Favicon -->
-<link href="img/favicon.ico" rel="icon">
+<link href="<%=url%>/img/favicon.ico" rel="icon">
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -111,7 +111,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					data-ride="carousel">
 					<div class="carousel-inner">
 						<div class="carousel-item active" style="height: 410px;">
-							<img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
+							<img class="img-fluid" src="<%=url%>/eshop/img/carousel-1.jpg" alt="Image">
 							<div
 								class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 								<div class="p-3" style="max-width: 700px;">
@@ -124,7 +124,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 							</div>
 						</div>
 						<div class="carousel-item" style="height: 410px;">
-							<img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
+							<img class="img-fluid" src="<%=url%>/eshop/img/carousel-2.jpg" alt="Image">
 							<div
 								class="carousel-caption d-flex flex-column align-items-center justify-content-center">
 								<div class="p-3" style="max-width: 700px;">
@@ -199,7 +199,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-1.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-1.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
 				</div>
@@ -209,7 +209,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-2.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-2.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
 				</div>
@@ -219,7 +219,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-3.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-3.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
 				</div>
@@ -229,7 +229,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-4.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-4.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Accerssories</h5>
 				</div>
@@ -239,7 +239,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-5.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-5.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Bags</h5>
 				</div>
@@ -249,7 +249,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					style="padding: 30px;">
 					<p class="text-right">15 Products</p>
 					<a href="" class="cat-img position-relative overflow-hidden mb-3">
-						<img class="img-fluid" src="img/cat-6.jpg" alt="">
+						<img class="img-fluid" src="<%=url%>/eshop/img/cat-6.jpg" alt="">
 					</a>
 					<h5 class="font-weight-semi-bold m-0">Shoes</h5>
 				</div>
@@ -265,7 +265,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 			<div class="col-md-6 pb-4">
 				<div
 					class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-					<img src="img/offer-1.png" alt="">
+					<img src="<%=url%>/eshop/img/offer-1.png" alt="">
 					<div class="position-relative" style="z-index: 1;">
 						<h5 class="text-uppercase text-primary mb-3">20% off the all
 							order</h5>
@@ -278,7 +278,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 			<div class="col-md-6 pb-4">
 				<div
 					class="position-relative bg-secondary text-center text-md-left text-white mb-2 py-5 px-5">
-					<img src="img/offer-2.png" alt="">
+					<img src="<%=url%>/eshop/img/offer-2.png" alt="">
 					<div class="position-relative" style="z-index: 1;">
 						<h5 class="text-uppercase text-primary mb-3">20% off the all
 							order</h5>
@@ -305,7 +305,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-1.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -330,7 +330,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-2.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-2.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -355,7 +355,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-3.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-3.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -380,7 +380,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-4.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-4.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -405,7 +405,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-5.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-5.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -430,7 +430,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-6.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-6.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -455,7 +455,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-7.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-7.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -480,7 +480,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-8.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-8.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -517,14 +517,23 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 					<p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet
 						diam labore at justo ipsum eirmod duo labore labore.</p>
 				</div>
-				<form action="">
+				<form action="<%=url %>/send-email" method="get">
 					<div class="input-group">
 						<input type="text" class="form-control border-white p-4"
-							placeholder="Email Goes Here">
+							placeholder="Email Goes Here" name="recipient">
 						<div class="input-group-append">
-							<button class="btn btn-primary px-4">Subscribe</button>
+							<button type="submit" class="btn btn-primary px-4">Subscribe</button>
 						</div>
 					</div>
+					<%
+					String Message = (String)request.getAttribute("Message");
+					if(Message != null) {
+					%>
+						<div class="alert alert-success" style="margin-right: 30px;">
+						      <strong>Success!</strong> <%=Message %>
+							  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+						 </div>
+					<%} %>
 				</form>
 			</div>
 		</div>
@@ -544,7 +553,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-1.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -569,7 +578,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-2.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-2.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -594,7 +603,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-3.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-3.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -619,7 +628,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-4.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-4.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -644,7 +653,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-5.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-5.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -669,7 +678,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-6.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-6.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -694,7 +703,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-7.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-7.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -719,7 +728,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 				<div class="card product-item border-0 mb-4">
 					<div
 						class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-						<img class="img-fluid w-100" src="img/product-8.jpg" alt="">
+						<img class="img-fluid w-100" src="<%=url%>/eshop/img/product-8.jpg" alt="">
 					</div>
 					<div
 						class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -751,28 +760,28 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 			<div class="col">
 				<div class="owl-carousel vendor-carousel">
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-1.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-1.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-2.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-2.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-3.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-3.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-4.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-4.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-5.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-5.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-6.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-6.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-7.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-7.jpg" alt="">
 					</div>
 					<div class="vendor-item border p-4">
-						<img src="img/vendor-8.jpg" alt="">
+						<img src="<%=url%>/eshop/img/vendor-8.jpg" alt="">
 					</div>
 				</div>
 			</div>
