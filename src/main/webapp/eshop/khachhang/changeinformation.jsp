@@ -86,12 +86,12 @@ KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
 											<div class="user--profile-right">
 												<div class="user--profile-group">
 													<%
-													String success = (String)request.getAttribute("success");
-													if(success != null) {
+													String message = (String)request.getAttribute("message");
+													if(message != null) {
 													%>
 														<div class="alert alert-success" style="margin-right: 30px;">
 															  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-														    <strong>Success!</strong> This alert box could indicate a successful or positive action.
+														    <strong>Success!</strong> <%=message %>
 														 </div>
 													<%} %>
 													<h2 class="user--profile-title-group mb-3">Thông tin</h2>
@@ -102,21 +102,26 @@ KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
 													String email= (khachHang.getEmail() != null) ? khachHang.getEmail() : "";
 													String gioiTinh= (khachHang.getGioiTinh() != null) ? khachHang.getGioiTinh() : "";
 													String diaChiKhachHang= (khachHang.getDiaChi() != null) ? khachHang.getDiaChi() : "";
+													String duongDanAnh= (khachHang.getDuongDanAnh() != null) ? khachHang.getDuongDanAnh() : "";
 													%>
-													<form class="init" method="post" id="frm-info" action="<%=url%>/khach-hang" >
+													<form method="post" action="<%=url%>/khach-hang" enctype="multipart/form-data">
 														<input type="hidden" name="action" value="change-info">
 														<div class="row">
 															<div class="col-md-2 col-xs-12">
 		                                                        <div class="row">
-		                                                            <div id="ImgPreview" class="no-img">
-		                                                            </div>
+		                                                        	<%if(duongDanAnh.equals("")) { %>
+			                                                            <div id="ImgPreview" class="no-img">
+			                                                            </div>
+			                                                        <%} else { %>
+				                                                        <div id="ImgPreview" class="img">
+				                                                        	<img src="<%=url%>/eshop/khachhang/avatar/<%=duongDanAnh%>">
+				                                                        </div>
+			                                                        <%} %>
 		                                                        </div>
 		                                                        <div class="row avatar-selector">
 		                                                            <div class="form-group UploadAvatar">
-		                                                                <label for="Avatar" id="messageValidateImage">Ảnh đại
-		                                                                    diện của bạn</label>
-		                                                                <input name="ImgFile" id="Avatar" class="file"
-		                                                                    type="file"
+		                                                                <label for="Avatar" id="messageValidateImage">Ảnh đại diện của bạn</label>
+		                                                                <input name="photo" id="Avatar" class="file" type="file"
 		                                                                    accept="image/png,image/x-png,image/gif,image/jpeg,image/jpg" />
 		                                                                <div class="input-group">
 		                                                                    <span class="input-group-btn">

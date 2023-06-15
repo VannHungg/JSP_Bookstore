@@ -1,6 +1,7 @@
 // co sua
 package database;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -44,9 +45,10 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String maXacThuc = rs.getString("maxacthuc");
 				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
 				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
+				String duongDanAnh = rs.getString("duongdananh");
 
-				KhachHang kh = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
-						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
+				KhachHang kh = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, diaChiMuaHang, 
+						ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc, duongDanAnh);
 				ketQua.add(kh);
 			}
 
@@ -93,9 +95,10 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String maXacThuc = rs.getString("maxacthuc");
 				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
 				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
+				String duongDanAnh = rs.getString("duongdananh");
 
-				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
-						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
+				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, diaChiMuaHang, 
+						ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc, duongDanAnh);
 			}
 
 			// Bước 5:
@@ -141,9 +144,10 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String maXacThuc = rs.getString("maxacthuc");
 				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
 				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
+				String duongDanAnh = rs.getString("duongdananh");
 
-				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
-						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
+				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, diaChiMuaHang, 
+						ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc, duongDanAnh);
 			}
 
 			// Bước 5:
@@ -296,7 +300,7 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 			String sql = "UPDATE khachhang "
 					+ " SET " + " hoten=?" + ", gioitinh=?"
 					+ ", diachi=?" + ", ngaysinh=?" + ", sodienthoai=?"
-					+ ", email=?" 
+					+ ", email=?" + ", duongdananh=?"
 					+ " WHERE makhachhang=?";
 
 			PreparedStatement st = con.prepareStatement(sql);
@@ -306,7 +310,8 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 			st.setDate(4, t.getNgaySinh());
 			st.setString(5, t.getSoDienThoai());
 			st.setString(6, t.getEmail());
-			st.setString(7, t.getMaKhacHang());
+			st.setString(7, t.getDuongDanAnh());
+			st.setString(8, t.getMaKhacHang());
 			// Bước 3: thực thi câu lệnh SQL
 
 			System.out.println(sql);

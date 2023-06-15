@@ -18,7 +18,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 		<div class="col-lg-6 text-center text-lg-right">
 			<%
 			KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-			if (khachHang == null) {
+			if (khachHang == null || !khachHang.isTrangThaiXacThuc()) {
 			%>
 			<div class="d-inline-flex align-items-center">
 				<a href="<%=url%>/eshop/khachhang/signin.jsp"

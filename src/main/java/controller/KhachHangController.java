@@ -1,24 +1,34 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import database.KhachHangDAO;
 import model.KhachHang;
 import util.Birthday;
 import util.Email;
+import util.Helper;
 import util.MaHoa;
 import util.RandomCode;
 
@@ -26,6 +36,7 @@ import util.RandomCode;
  * Servlet implementation class KhachHang
  */
 @WebServlet("/khach-hang")
+@MultipartConfig
 public class KhachHangController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String host;
@@ -47,6 +58,7 @@ public class KhachHangController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		System.out.println("action: " + action);
 		if (action.equals("sign-in")) {
 			signin(request, response);
 		} else if (action.equals("sign-out")) {
@@ -60,7 +72,12 @@ public class KhachHangController extends HttpServlet {
 		} else if (action.equals("change-password")) {
 			changePassword(request, response);
 		} else if (action.equals("change-info")) {
-			changeInfoUser(request, response);
+			try {
+				changeInfoUser(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else if (action.equals("confirm-account")) {
 			try {
 				confirmAccount(request, response);
@@ -81,7 +98,7 @@ public class KhachHangController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	//cần chỉnh sửa
+
 	protected void confirmAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
 		String id = request.getParameter("makhachhang");
 		System.out.println("id: " + id);
@@ -124,22 +141,29 @@ public class KhachHangController extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	protected void changeInfoUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@SuppressWarnings("deprecation")
+	protected void changeInfoUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
+		KhachHang kh = new KhachHang();
+		KhachHangDAO khDAO = new KhachHangDAO();
+		String message = "";
+		
+		// gets values of text fields
 		String id = request.getParameter("id");
 		String fullName = request.getParameter("FamilyName");
-		System.out.println(fullName);
 		String birthday = request.getParameter("BirthYear");
 		Date dob = Birthday.changeStringToDate(birthday);
 		String phoneNumber = request.getParameter("PhoneNumber");
 		String email = request.getParameter("EmailAddress");
 		String gender = request.getParameter("Gender");
 		String address = request.getParameter("CityName");
-		System.out.println(address);
 		
-		KhachHang kh = new KhachHang();
+		Part part = request.getPart("photo");
+		String photo = part.getSubmittedFileName();
+		System.out.println(photo);
+		
 		kh.setMaKhacHang(id);
 		kh.setHoVaTen(fullName);
 		kh.setNgaySinh(dob);
@@ -147,15 +171,29 @@ public class KhachHangController extends HttpServlet {
 		kh.setEmail(email);
 		kh.setGioiTinh(gender);
 		kh.setDiaChi(address);
+		kh.setDuongDanAnh(photo);
 		
-		KhachHangDAO khDAO = new KhachHangDAO();
-		khDAO.updateById(kh);
-		
+		if(khDAO.updateById(kh) == 0)  {
+			message = "Cập nhật thông tin không thành công";						
+		}
+		else {
+			message = "Cập nhật thông tin thành công";
+			
+			String path = request.getRealPath("/") + "eshop/khachhang/avatar" + File.separator + kh.getDuongDanAnh();
+			System.out.println("path: " + path);
+			Helper.deleteFile(path);
+			if(Helper.saveFile(part.getInputStream(), path)) {
+				System.out.println("photo updated...");
+			}
+			else {
+				System.out.println("photo not update");
+			}
+			
+		}
 		KhachHang khachHang = khDAO.selectById(kh);
 		
 		String url = "/eshop/khachhang/changeinformation.jsp";
-		String success = "Cập nhật thông tin thành công";
-		request.setAttribute("success", success);
+		request.setAttribute("message", message);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("khachHang", khachHang);

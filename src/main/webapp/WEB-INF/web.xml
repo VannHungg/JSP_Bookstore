@@ -30,4 +30,11 @@
         <param-name>pass</param-name>
         <param-value>zvfhvsxjmfrorqva</param-value>
     </context-param>
+    
+    <!-- Folder upload image -->
+    <context-param>
+    	<description>Lưu trữ folder hình ảnh của khách hàng</description>
+        <param-name>avatar</param-name>
+        <param-value>/khachhang/avatar</param-value>
+    </context-param>
 </web-app>
