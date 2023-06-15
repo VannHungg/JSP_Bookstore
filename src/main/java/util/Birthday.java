@@ -4,6 +4,7 @@ package util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Birthday {
@@ -18,5 +19,14 @@ public class Birthday {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static java.sql.Date thoiHanHieuLuc(int time) throws ParseException {
+		java.sql.Date todaysDate = new java.sql.Date(new java.util.Date().getTime());
+		Calendar c = Calendar.getInstance();
+		c.setTime(todaysDate);
+		c.add(Calendar.DATE, time);
+		java.sql.Date thoGianHieuLucXacThuc = new java.sql.Date(c.getTimeInMillis());
+		return thoGianHieuLucXacThuc;
 	}
 }

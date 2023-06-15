@@ -39,7 +39,6 @@ public class Email {
 		msg.setFrom(new InternetAddress(user));
 		InternetAddress[] toAddresses = { new InternetAddress(to) };
         msg.setRecipients(Message.RecipientType.TO, toAddresses);
-//		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
 		msg.setSubject(subject);
 		msg.setSentDate(new Date()); // Quy đinh ngày gửi
 //		msg.setReplyTo(InternetAddress.parse(from, false)); // Quy định email nhận phản hồi

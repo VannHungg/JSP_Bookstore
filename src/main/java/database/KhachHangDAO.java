@@ -41,9 +41,12 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String soDienThoai = rs.getString("sodienthoai");
 				String email = rs.getString("email");
 				boolean dangKyNhanBangTin = rs.getBoolean("dangkinhanbangtin");
+				String maXacThuc = rs.getString("maxacthuc");
+				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
+				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
 
-				KhachHang kh = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi,
-						diaChiNhanHang, diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin);
+				KhachHang kh = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
+						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
 				ketQua.add(kh);
 			}
 
@@ -87,9 +90,12 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String soDienThoai = rs.getString("sodienthoai");
 				String email = rs.getString("email");
 				boolean dangKyNhanBangTin = rs.getBoolean("dangkinhanbangtin");
+				String maXacThuc = rs.getString("maxacthuc");
+				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
+				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
 
-				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang,
-						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin);
+				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
+						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
 			}
 
 			// Bước 5:
@@ -132,9 +138,12 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 				String soDienThoai = rs.getString("sodienthoai");
 				String email = rs.getString("email");
 				boolean dangKyNhanBangTin = rs.getBoolean("dangkinhanbangtin");
+				String maXacThuc = rs.getString("maxacthuc");
+				Date thoiGianHieuLucMaXacThuc = rs.getDate("thoigianhieulucmaxacthuc");
+				boolean trangThaiXacThuc = rs.getBoolean("trangthaixacthuc");
 
-				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang,
-						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin);
+				ketQua = new KhachHang(maKhacHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang, 
+						diaChiMuaHang, ngaySinh, soDienThoai, email, dangKyNhanBangTin, maXacThuc, thoiGianHieuLucMaXacThuc, trangThaiXacThuc);
 			}
 
 			// Bước 5:
@@ -155,14 +164,17 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 			Connection con = JDBCUtil.getConnection();
 
 			// Bước 2: tạo ra đối tượng statement
-			String sql = "INSERT INTO khachhang (makhachhang, tendangnhap, matkhau, email) "
-					+ " VALUES (?,?,?,?)";
+			String sql = "INSERT INTO khachhang (makhachhang, tendangnhap, matkhau, email, maxacthuc, thoigianhieulucmaxacthuc, trangthaixacthuc) "
+					+ " VALUES (?,?,?,?,?,?,?)";
 
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, t.getMaKhacHang());
 			st.setString(2, t.getTenDangNhap());
 			st.setString(3, t.getMatKhau());
 			st.setString(4, t.getEmail());
+			st.setString(5, t.getMaXacThuc());
+			st.setDate(6, t.getThoiGianHieuLucMaXacThuc());
+			st.setBoolean(7, t.isTrangThaiXacThuc());
 
 			// Bước 3: thực thi câu lệnh SQL
 			ketQua = st.executeUpdate();
@@ -326,6 +338,37 @@ public class KhachHangDAO implements DAOInterface<KhachHang> {
 			PreparedStatement st = con.prepareStatement(sql);
 			String hashPassword = MaHoa.toMD5(t);
 			st.setString(1, hashPassword);
+			st.setString(2, id);
+			// Bước 3: thực thi câu lệnh SQL
+
+			System.out.println(sql);
+			ketQua = st.executeUpdate();
+
+			// Bước 4:
+			System.out.println("Bạn đã thực thi: " + sql);
+			System.out.println("Có " + ketQua + " dòng bị thay đổi!");
+
+			// Bước 5:
+			JDBCUtil.closeConnection(con);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ketQua;
+	}
+	
+	public int updateConfirmAccount(String id) {
+		int ketQua = 0;
+		try {
+			// Bước 1: tạo kết nối đến CSDL
+			Connection con = JDBCUtil.getConnection();
+
+			// Bước 2: tạo ra đối tượng statement
+			String sql = "UPDATE khachhang " + " SET " + "trangthaixacthuc=?" + " WHERE makhachhang=?";
+
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, 1);
 			st.setString(2, id);
 			// Bước 3: thực thi câu lệnh SQL
 

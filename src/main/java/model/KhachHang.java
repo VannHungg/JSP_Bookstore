@@ -15,6 +15,9 @@ public class KhachHang {
 	private String soDienThoai;
 	private String email;
 	private boolean dangKyNhanBangTin;
+	private String maXacThuc;
+	private Date thoiGianHieuLucMaXacThuc;
+	private boolean trangThaiXacThuc;
 	
 	public KhachHang() {
 	}
@@ -34,6 +37,27 @@ public class KhachHang {
 		this.soDienThoai = soDienThoai;
 		this.email = email;
 		this.dangKyNhanBangTin = dangKyNhanBangTin;
+	}
+
+	public KhachHang(String maKhacHang, String tenDangNhap, String matKhau, String hoVaTen, String gioiTinh,
+			String diaChi, String diaChiNhanHang, String diaChiMuaHang, Date ngaySinh, String soDienThoai, String email,
+			boolean dangKyNhanBangTin, String maXacThuc, Date thoiGianHieuLucMaXacThuc, boolean trangThaiXacThuc) {
+		super();
+		this.maKhacHang = maKhacHang;
+		this.tenDangNhap = tenDangNhap;
+		this.matKhau = matKhau;
+		this.hoVaTen = hoVaTen;
+		this.gioiTinh = gioiTinh;
+		this.diaChi = diaChi;
+		this.diaChiNhanHang = diaChiNhanHang;
+		this.diaChiMuaHang = diaChiMuaHang;
+		this.ngaySinh = ngaySinh;
+		this.soDienThoai = soDienThoai;
+		this.email = email;
+		this.dangKyNhanBangTin = dangKyNhanBangTin;
+		this.maXacThuc = maXacThuc;
+		this.thoiGianHieuLucMaXacThuc = thoiGianHieuLucMaXacThuc;
+		this.trangThaiXacThuc = trangThaiXacThuc;
 	}
 
 	public String getMaKhacHang() {
@@ -130,6 +154,30 @@ public class KhachHang {
 
 	public void setDangKyNhanBangTin(boolean dangKyNhanBangTin) {
 		this.dangKyNhanBangTin = dangKyNhanBangTin;
+	}
+
+	public String getMaXacThuc() {
+		return maXacThuc;
+	}
+
+	public void setMaXacThuc(String maXacThuc) {
+		this.maXacThuc = maXacThuc;
+	}
+
+	public Date getThoiGianHieuLucMaXacThuc() {
+		return thoiGianHieuLucMaXacThuc;
+	}
+
+	public void setThoiGianHieuLucMaXacThuc(Date thoiGianHieuLucMaXacThuc) {
+		this.thoiGianHieuLucMaXacThuc = thoiGianHieuLucMaXacThuc;
+	}
+
+	public boolean isTrangThaiXacThuc() {
+		return trangThaiXacThuc;
+	}
+
+	public void setTrangThaiXacThuc(boolean trangThaiXacThuc) {
+		this.trangThaiXacThuc = trangThaiXacThuc;
 	}
 	
 }

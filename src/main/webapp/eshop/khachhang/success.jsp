@@ -31,7 +31,10 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
                     </div>
 
 					<div class="signin-form">
-						<h2 class="form-title">Congratulations, you have just sign up successfully!</h2>
+						<h2 class="form-title">
+							Congratulations, you have just sign up successfully! 
+							Please confirm your account by link was sent in your email.
+						</h2>
 						<div class="form-group">
 							<p id="demo"></p>
 						</div>
@@ -51,7 +54,7 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 			  clearInterval(id);
 		  }
 		  else {
-			  document.getElementById("demo").innerHTML = "You will direct go home on " + i;
+			  document.getElementById("demo").innerHTML = "Or you will direct to confirm your account on " + i;
 			  i--;
 		  }
 		}
@@ -59,7 +62,8 @@ String url = request.getScheme() + "://" + request.getServerName() + ":" + reque
 	<script>
 		var link = location.protocol + "//" + location.host + "/"
 				+ location.pathname.split("/")[1];
-		var linkDirection = link + "/eshop/index.jsp";
+		var id = location.search.split("=")[1];
+		var linkDirection = link + "/eshop/khachhang/confirmaccount.jsp?id=" + id;
 		setTimeout(function() {
 			window.location.href = linkDirection;
 		}, 7000);

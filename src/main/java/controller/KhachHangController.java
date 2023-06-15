@@ -2,8 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +18,9 @@ import javax.servlet.http.HttpSession;
 import database.KhachHangDAO;
 import model.KhachHang;
 import util.Birthday;
+import util.Email;
 import util.MaHoa;
+import util.RandomCode;
 
 /**
  * Servlet implementation class KhachHang
@@ -22,10 +28,21 @@ import util.MaHoa;
 @WebServlet("/khach-hang")
 public class KhachHangController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String host;
+	private String port;
+	private String user;
+	private String pass;
+	
+	public void init() {
+		ServletContext context = getServletContext();
+		this.host = context.getInitParameter("host");
+		this.port = context.getInitParameter("port");
+		this.user = context.getInitParameter("user");
+		this.pass = context.getInitParameter("pass");
+	}
     
     public KhachHangController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,17 +52,76 @@ public class KhachHangController extends HttpServlet {
 		} else if (action.equals("sign-out")) {
 			signout(request, response);
 		} else if (action.equals("process-register")) {
-			register(request, response);
+			try {
+				register(request, response);
+			} catch (ServletException | IOException | ParseException | MessagingException e) {
+				e.printStackTrace();
+			}
 		} else if (action.equals("change-password")) {
 			changePassword(request, response);
-		}else if (action.equals("change-info")) {
+		} else if (action.equals("change-info")) {
 			changeInfoUser(request, response);
+		} else if (action.equals("confirm-account")) {
+			try {
+				confirmAccount(request, response);
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	//cần chỉnh sửa
+	protected void confirmAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+		String id = request.getParameter("makhachhang");
+		System.out.println("id: " + id);
+		String codeConfirm = request.getParameter("maxacthuc");
+		System.out.println("code: " + codeConfirm);
+		
+		KhachHangDAO khDAO = new KhachHangDAO();
+		KhachHang khachHang = new KhachHang();
+		khachHang.setMaKhacHang(id);
+		KhachHang kh = khDAO.selectById(khachHang);
+		
+		String notify = "";
+		String url = "/eshop/khachhang/notification.jsp";
+		//ss với mã xác thực nhận đc
+		if(kh != null) {
+			//xác nhận code còn hiệu lực hay không
+			Date dateConfirm = Birthday.thoiHanHieuLuc(0);
+			System.out.println("date confirm: " + dateConfirm);
+			Date dateInDB = kh.getThoiGianHieuLucMaXacThuc();
+			System.out.println("date in db: " + dateInDB);
+			if(dateConfirm.compareTo(dateInDB) > 0) {//tg hiệu lực ko còn
+				notify = "Thời gian hiệu lực để xác nhận tài khoản đã hết -.-";
+			}
+			else {
+				if(kh.getMaXacThuc().equals(codeConfirm)) {
+					notify = "Xác thực tài khoản thành công";
+					khDAO.updateConfirmAccount(id);
+				}
+				else {
+					notify = "Xác thực tài khoản không thành công, mã xác thực đã bị sai";
+				}
+			}
+		}
+		else {
+			notify = "Bạn chưa đăng ký tài khoản, vui lòng đăng ký để tiếp tục";
+		}
+		
+		request.setAttribute("notify", notify);
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 	
 	protected void changeInfoUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -127,7 +203,7 @@ public class KhachHangController extends HttpServlet {
 		rd.forward(request, response);
 	}
 	
-	protected void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, AddressException, MessagingException {
 		String tenDangNhap = request.getParameter("name");
 		String email = request.getParameter("email");
 		String matKhau = request.getParameter("pass");
@@ -154,23 +230,40 @@ public class KhachHangController extends HttpServlet {
 		String urlDirection = "";
 		if(checkError) {
 			urlDirection = "/eshop/khachhang/signup.jsp";
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(urlDirection);
+			rd.forward(request, response);
 		}
 		else {
 			String maKhachHang = System.currentTimeMillis() + "";
 			matKhau = MaHoa.toMD5(matKhau);
+			String maXacThuc = RandomCode.randomCode(6);
+			boolean trangThaiXacThuc = false;
+			java.sql.Date thoigianhieulucmaxacthuc = Birthday.thoiHanHieuLuc(10); //hiệu lực trong 10 ngày
+			
 			KhachHang khachHang = new KhachHang();
 			khachHang.setMaKhacHang(maKhachHang);
 			khachHang.setTenDangNhap(tenDangNhap);
 			khachHang.setEmail(email);
 			khachHang.setMatKhau(matKhau);
+			khachHang.setMaXacThuc(maXacThuc);
+			khachHang.setTrangThaiXacThuc(trangThaiXacThuc);
+			khachHang.setThoiGianHieuLucMaXacThuc(thoigianhieulucmaxacthuc);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("khachHang", khachHang);
 			khachHangDAO.insert(khachHang);
-			urlDirection = "/eshop/khachhang/success.jsp"; // start from root(webapp)
+			
+			//send e-mail confirm account after sign up
+			String recipient = khachHang.getEmail(); //?
+			String subject = "Thông báo xác thực tài khoản " + System.currentTimeMillis();
+			String content = getContent(khachHang);
+			Email.sendEmail(this.host, this.port, this.user, this.pass, recipient, subject, content); //success
+
+			request.setAttribute("id", maKhachHang);
+			String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+							+ request.getContextPath();
+			response.sendRedirect(url + "/eshop/khachhang/success.jsp?id=" + khachHang.getMaKhacHang());
 		}
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(urlDirection);
-		rd.forward(request, response);
 	}
 	
 	protected void signin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -182,15 +275,22 @@ public class KhachHangController extends HttpServlet {
 		KhachHang khachHang = khDAO.selectByUsernameAndPassword(username, password);
 		
 		String url = "";
-		if(khachHang != null) {//đăng nhập thành công
+		if(khachHang != null && khachHang.isTrangThaiXacThuc()) {//đăng nhập thành công
 			String urlDirection = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 						+ request.getContextPath();
 			HttpSession session = request.getSession();
 			session.setAttribute("khachHang", khachHang);//lưu lại object khachHang vao trong session
 			response.sendRedirect(urlDirection + "/eshop/index.jsp");
 		}
-		else {
+		else if(khachHang == null ) {
 			request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng");
+			request.setAttribute("username", username);
+			url = "/eshop/khachhang/signin.jsp";
+			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+			rd.forward(request, response);
+		}
+		else if(!khachHang.isTrangThaiXacThuc()) {
+			request.setAttribute("error", "Bạn chưa xác thực tài khoản, vui lòng truy cập email đã đăng ký để xác thực");
 			request.setAttribute("username", username);
 			url = "/eshop/khachhang/signin.jsp";
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
@@ -204,5 +304,15 @@ public class KhachHangController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.removeAttribute("khachHang");//xóa object khachHang ra khoi session
 		response.sendRedirect(url + "/eshop/index.jsp");
+	}
+	
+	public static String getContent(KhachHang kh) {
+		String link = "http://localhost:8080/JSP_Bookstore2/khach-hang?action=confirm-account&makhachhang="+kh.getMaKhacHang()+"&maxacthuc="+kh.getMaXacThuc();
+		String content = "<p>TITV.vn xin ch&agrave;o bạn <strong>"+kh.getHoVaTen()+"</strong>,</p>\r\n"
+				+ "<p>Vui l&ograve;ng x&aacute;c thực t&agrave;i khoản của bạn bằng c&aacute;ch nhập m&atilde; <strong>"+kh.getMaXacThuc()+"</strong>, hoặc click trực tiếp v&agrave;o đường link sau đ&acirc;y:</p>\r\n"
+				+ "<p><a href=\""+link+"\">"+link+"</a></p>\r\n"
+				+ "<p>Đ&acirc;y l&agrave; email tự động, vui l&ograve;ng kh&ocirc;ng phản hồi email n&agrave;y.</p>\r\n"
+				+ "<p>Tr&acirc;n trọng cảm ơn.</p>";
+		return content;
 	}
 }
