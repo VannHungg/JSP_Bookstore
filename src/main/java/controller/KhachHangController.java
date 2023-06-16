@@ -161,8 +161,15 @@ public class KhachHangController extends HttpServlet {
 		String address = request.getParameter("CityName");
 		
 		Part part = request.getPart("photo");
-		String photo = part.getSubmittedFileName();
-		System.out.println(photo);
+		String realNameOfPhoto = part.getSubmittedFileName();
+		System.out.println(realNameOfPhoto);
+		//mã hóa tên hình ảnh 
+		String arr[] = realNameOfPhoto.split("[.]");
+		for (String string : arr) {
+			System.out.println(string +  " ");
+		}
+		System.out.println("length: " + arr.length);
+		String photo = System.currentTimeMillis() + "." + arr[arr.length - 1];
 		
 		kh.setMaKhacHang(id);
 		kh.setHoVaTen(fullName);
@@ -179,8 +186,10 @@ public class KhachHangController extends HttpServlet {
 		else {
 			message = "Cập nhật thông tin thành công";
 			
-			String path = request.getRealPath("/") + "eshop/khachhang/avatar" + File.separator + kh.getDuongDanAnh();
+			String folder = getServletContext().getRealPath("eshop/khachhang/avatar");
+			String path = folder + File.separator + kh.getDuongDanAnh();
 			System.out.println("path: " + path);
+			
 			Helper.deleteFile(path);
 			if(Helper.saveFile(part.getInputStream(), path)) {
 				System.out.println("photo updated...");
@@ -188,7 +197,6 @@ public class KhachHangController extends HttpServlet {
 			else {
 				System.out.println("photo not update");
 			}
-			
 		}
 		KhachHang khachHang = khDAO.selectById(kh);
 		
